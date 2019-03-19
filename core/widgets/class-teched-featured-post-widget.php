@@ -62,6 +62,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 				'post_type' => 'post',
 				'cat' => $category_id,
 				'posts_per_page' => 1,
+				'post_status' => 'publish',
 			) );
 			
 			if ( $widget_query->have_posts() ) : 
