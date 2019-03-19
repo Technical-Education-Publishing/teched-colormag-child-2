@@ -237,7 +237,7 @@ gulp.task('build',
 gulp.task('default',
   gulp.series('build', watch));
 
-function version() {
+gulp.task( 'version', function() {
 	
     return gulp.src([
         'admin/**/*',
@@ -258,7 +258,8 @@ function version() {
 			return captureGroup + pkg.version; // This really shouldn't be necessary, but it wouldn't work otherwise
 		} ) )
         .pipe(gulp.dest('./'));
-}
+	
+} );
 
 function setProd( done ) {
 	
@@ -339,4 +340,4 @@ function rename( done ) {
 
 // Package task
 gulp.task('package',
-  gulp.series(setProd, version, 'build', generate_pot, releaseCopy, 'release:grunt-compress', rename, releaseCleanup, removeProd, 'build'));
+  gulp.series(setProd, 'version', 'build', generate_pot, releaseCopy, 'release:grunt-compress', rename, releaseCleanup, removeProd, 'build'));
