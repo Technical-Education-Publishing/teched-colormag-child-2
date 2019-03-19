@@ -4,7 +4,7 @@
  *
  * Displays the Contact Page Template of the theme.
  *
- * @package ThemeGrill
+ * @package Colormag_Child_2
  * @subpackage ColorMag
  * @since ColorMag 1.0
  */
