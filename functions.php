@@ -76,3 +76,48 @@ function teched_enqueue_scripts() {
 }
 
 require_once THEME_DIR . '/core/widgets/class-teched-featured-post-widget.php';
+
+add_action( 'wp_head', 'teched_gtm_head' );
+
+/**
+ * Google Analytics Head
+ * 
+ * @since		{{VERSION}}
+ * @return		void
+ */
+function teched_gtm_head() {
+	
+	?>
+
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-WF3NB62');</script>
+	<!-- End Google Tag Manager -->
+
+	<?php
+	
+}
+
+add_action( 'colormag_before', 'teched_gtm_after_opening_body_tag', 1 );
+
+/**
+ * Google Analytics Body (Holy cow, the parent theme actually had a hook for this!?)
+ *
+ * @since		{{VERSION}}
+ * @return		void
+ */
+function teched_gtm_after_opening_body_tag() {
+	
+	?>
+
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WF3NB62"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
+	<?php
+	
+}
