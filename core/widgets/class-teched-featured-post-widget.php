@@ -2,7 +2,7 @@
 /**
  * The Widget for EDD Fields
  *
- * @since {{VERSION}}
+ * @since 1.1.0
  *
  * @package Colormag_Child_2
  * @subpackage Colormag_Child_2/core/widgets
@@ -21,7 +21,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 		/**
 		 * TechEd_Featured_Post_Widget constructor.
 		 *
-		 * @since {{VERSION}}
+		 * @since 1.1.0
 		 */
 		function __construct() {
 
@@ -45,7 +45,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 		 * @param        array $instance Saved values from database
 		 *
 		 * @access        public
-		 * @since		  {{VERSION}}
+		 * @since		  1.1.0
 		 * @return        void
 		 */
 		public function widget( $args, $instance ) {
@@ -179,7 +179,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 		 * @param        array $instance Previously saved values from database
 		 *
 		 * @access        public
-		 * @since		  {{VERSION}}
+		 * @since		  1.1.0
 		 * @return        void
 		 */
 		public function form( $instance ) {
@@ -231,7 +231,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 		 * @param        array $old_instance Previously saved values from database
 		 *
 		 * @access       public
-		 * @since		 {{VERSION}}
+		 * @since		 1.1.0
 		 * @return       array Updated safe values to be saved
 		 */
 		public function update( $new_instance, $old_instance ) {
@@ -249,7 +249,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 		 * @param		string $more_string More String
 		 *                                  
 		 * @access		public
-		 * @since		{{VERSION}}
+		 * @since		1.1.0
 		 * @return		string More String
 		 */
 		public function excerpt_more( $more_string ) {

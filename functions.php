@@ -2,7 +2,7 @@
 /**
  * The theme's functions file that loads on EVERY page, used for uniform functionality.
  *
- * @since   {{VERSION}}
+ * @since   1.1.0
  * @package Colormag_Child_2
  */
 
@@ -82,7 +82,7 @@ add_action( 'wp_head', 'teched_gtm_head' );
 /**
  * Google Analytics Head
  * 
- * @since		{{VERSION}}
+ * @since		1.1.0
  * @return		void
  */
 function teched_gtm_head() {
@@ -106,7 +106,7 @@ add_action( 'colormag_before', 'teched_gtm_after_opening_body_tag', 1 );
 /**
  * Google Analytics Body (Holy cow, the parent theme actually had a hook for this!?)
  *
- * @since		{{VERSION}}
+ * @since		1.1.0
  * @return		void
  */
 function teched_gtm_after_opening_body_tag() {
