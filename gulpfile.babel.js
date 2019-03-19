@@ -246,6 +246,7 @@ gulp.task( 'version', function() {
         '!core/library/**/*',
         'languages/**/*',
         'page-templates/**/*',
+		'functions.php',
         'style.css',
         'readme.txt'
     ], { base: './', allowEmpty: true } )
