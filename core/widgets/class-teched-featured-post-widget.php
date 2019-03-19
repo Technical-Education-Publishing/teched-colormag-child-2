@@ -29,7 +29,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 				'teched_featured_post_widget', // Base ID
 				__( 'Tech Ed Featured Post', 'colormag-child-2' ), // Name
 				array(
-					'classname' => 'teched-featured-post-widget',
+					'classname' => 'teched-featured-post-widget widget_featured_posts widget_featured_meta.clearfix',
 					'description' => __( 'Shows the most recent Post within a Category. For use on the Home Page.', 'colormag-child-2' ),
 				) // Args
 			);
@@ -76,85 +76,86 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 			
 				while ( $widget_query->have_posts() ) : $widget_query->the_post(); ?>
 
-					<section class="widget widget_featured_posts widget_featured_meta.clearfix">
-						<h3 class="widget-title" style="border-bottom-color:;"><span>
-							<?php echo get_cat_name( $category_id ); ?>
-						</span></h3>
-						
-						<div id="author-feature" class="first-post">
-							<div class="single-article clearfix">
-								<div class="article-content" style="margin-left: 3px; margin-right: 3px;">
-									
-									<div class="above-entry-meta">
-										<span class="cat-links">
-											
-											<?php 
-			
-												$post_categories = wp_get_post_categories( get_the_ID() );
-			
-												foreach ( $post_categories as $index => $term_id ) : ?>
-											
-													<a href="<?php echo get_category_link( $term_id ); ?>"<?php echo ( $index == 0 ) ? ' style="background:#005151"' : ''; ?> rel="category tag" target="_self">
-														<?php echo get_cat_name( $term_id ); ?>
-													</a>
-													&nbsp;
-											
-												<?php endforeach; ?>
-											
-										</span>
-									</div>
-									
-            						<h3 class="entry-title">
-										<a href="<?php the_permalink(); ?>" target="_self">
-											<?php the_title(); ?>
-										</a>
-									</h3>
-									
-									<div class="below-entry-meta">
-										
-										<?php $post_timestamp = get_post_time( 'U' ); ?>
-										
-										<span class="posted-on">
-											<a href="<?php the_permalink(); ?>" title="<?php echo date( 'g:i a', $post_timestamp ); ?>" rel="bookmark" target="_self">
-												<i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="<?php echo date( 'Y-m-d', $post_timestamp ); ?>T<?php echo date( 'H:i', $post_timestamp ); ?>:00+00:00"><?php echo date( 'F j, Y', $post_timestamp ); ?></time>
-											</a>
-										</span>
-										
-										<span class="byline">
-											<span class="author vcard">
-												<i class="fa fa-user"></i><a class="url fn n" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>" title="<?php the_author(); ?>" target="_self"><?php the_author(); ?></a>
-											</span>
-										</span>
-										
-										<span class="comments">
-											<i class="fa fa-comment"></i><a href="<?php the_permalink(); ?>#respond" target="_self">
-												<?php comments_number( 0, 1, '%s' ); ?>
-											</a>
-										</span>
-										
-									</div>
-									
-									<div class="entry-content">
-										
-										<figure>
-											<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
-												<img width="115" height="144" src= "<?php echo get_wp_user_avatar_src( get_the_author_meta( 'ID' ), 'medium' ); ?>" alt="<?php the_author(); ?>" style="float: right; margin-left: 15px; margin-right: 3px;" >
-											</a>
-											<!--end image code -->
-											<figcaption style="text-align: left;">
-												<?php the_excerpt(); ?>
-											</figcaption>
-										</figure>
-										
-									</div>
-									
+					<?php echo $args['before_widget']; ?>
+
+					<h3 class="widget-title" style="border-bottom-color:;"><span>
+						<?php echo get_cat_name( $category_id ); ?>
+					</span></h3>
+
+					<div id="author-feature" class="first-post">
+						<div class="single-article clearfix">
+							<div class="article-content" style="margin-left: 3px; margin-right: 3px;">
+
+								<div class="above-entry-meta">
+									<span class="cat-links">
+
+										<?php 
+
+											$post_categories = wp_get_post_categories( get_the_ID() );
+
+											foreach ( $post_categories as $index => $term_id ) : ?>
+
+												<a href="<?php echo get_category_link( $term_id ); ?>"<?php echo ( $index == 0 ) ? ' style="background:#005151"' : ''; ?> rel="category tag" target="_self">
+													<?php echo get_cat_name( $term_id ); ?>
+												</a>
+												&nbsp;
+
+											<?php endforeach; ?>
+
+									</span>
 								</div>
-								
+
+								<h3 class="entry-title">
+									<a href="<?php the_permalink(); ?>" target="_self">
+										<?php the_title(); ?>
+									</a>
+								</h3>
+
+								<div class="below-entry-meta">
+
+									<?php $post_timestamp = get_post_time( 'U' ); ?>
+
+									<span class="posted-on">
+										<a href="<?php the_permalink(); ?>" title="<?php echo date( 'g:i a', $post_timestamp ); ?>" rel="bookmark" target="_self">
+											<i class="fa fa-calendar-o"></i> <time class="entry-date published" datetime="<?php echo date( 'Y-m-d', $post_timestamp ); ?>T<?php echo date( 'H:i', $post_timestamp ); ?>:00+00:00"><?php echo date( 'F j, Y', $post_timestamp ); ?></time>
+										</a>
+									</span>
+
+									<span class="byline">
+										<span class="author vcard">
+											<i class="fa fa-user"></i><a class="url fn n" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>" title="<?php the_author(); ?>" target="_self"><?php the_author(); ?></a>
+										</span>
+									</span>
+
+									<span class="comments">
+										<i class="fa fa-comment"></i><a href="<?php the_permalink(); ?>#respond" target="_self">
+											<?php comments_number( 0, 1, '%s' ); ?>
+										</a>
+									</span>
+
+								</div>
+
+								<div class="entry-content">
+
+									<figure>
+										<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
+											<img width="115" height="144" src= "<?php echo get_wp_user_avatar_src( get_the_author_meta( 'ID' ), 'medium' ); ?>" alt="<?php the_author(); ?>" style="float: right; margin-left: 15px; margin-right: 3px;" >
+										</a>
+										<!--end image code -->
+										<figcaption style="text-align: left;">
+											<?php the_excerpt(); ?>
+										</figcaption>
+									</figure>
+
+								</div>
+
 							</div>
-							
+
 						</div>
-						
-					</section>
+
+					</div>
+
+					<?php echo $args['after_widget']; ?>
 			
 				<?php endwhile;
 			
