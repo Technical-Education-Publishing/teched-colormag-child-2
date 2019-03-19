@@ -74,3 +74,5 @@ function teched_enqueue_scripts() {
 	wp_enqueue_style( 'teched' );
 	
 }
+
+require_once THEME_DIR . '/core/widgets/class-teched-featured-post-widget.php';
