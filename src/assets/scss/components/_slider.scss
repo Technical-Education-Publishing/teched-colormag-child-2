@@ -1,0 +1,15 @@
+.widget_featured_slider {
+
+    .single-slide {
+
+        &.displaynone {
+            visibility: hidden; // They did not actually tell it to display: none is CSS...
+        }
+
+        &[aria-hidden] {
+            visibility: visible; // Once the JS loads, we will let it do its own thing
+        }
+
+    }
+
+}
