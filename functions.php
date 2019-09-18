@@ -192,3 +192,51 @@ function teched_alter_directory_category_link( $link, $term, $taxonomy ) {
 	return $link;
 
 }
+
+/**
+ * Returns a tel: link formatted all nicely
+ * 
+ * @param		string  $phone_number Phone Number
+ * @param		string  $extension    Optional Extension to auto-dial to
+ * @param		string  $link_text    Text to use instead of the Phone Number
+ * @param		boolean $echo         Whether to echo out the HTML. False returns the Tel Link
+ *             
+ * @since		{{VERSION}}                                                                       
+ * @return		string  tel: Link
+ */
+function teched_get_phone_number_link( $phone_number, $extension = false, $link_text = '', $echo = true ) {
+    
+    $trimmed_phone_number = preg_replace( '/\D/', '', trim( $phone_number ) );
+    
+    if ( strlen( $trimmed_phone_number ) == 10 ) { // No Country Code
+        $trimmed_phone_number = '1' . $trimmed_phone_number;
+    }
+    else if ( strlen( $trimmed_phone_number ) == 7 ) { // No Country or Area Code
+        $trimmed_phone_number = '1734' . $trimmed_phone_number; // We'll assume 734
+    }
+    
+    $tel_link = 'tel:' . $trimmed_phone_number;
+    
+    if ( $link_text == '' ) {
+        
+        $link_text = $phone_number;
+        
+        if ( ( $extension !== false ) && ( $extension !== '' ) ) {
+            $link_text = $link_text . __( ' x ', 'colormag-child-2' ) . $extension;
+        }
+        
+    }
+    
+    if ( ( $extension !== false ) && ( $extension !== '' ) ) {
+        $tel_link = $tel_link . ',' . $extension;
+    }
+	
+	if ( $echo ) {
+    
+		return "<a href='$tel_link' class='phone-number-link'>$link_text</a>";
+		
+	}
+
+	return $tel_link;
+    
+}

@@ -1,1 +1,12 @@
 @import 'components/slider';
+
+// This bit of Foundation is harmless being here. It must be global in order to work.
+
+@import 'foundation-settings'; // Copied from FoundationPress. Added !default to any variables we're overriding
+@import "settings-overrides";
+
+.foundation-mq {
+	font-family: '#{-zf-bp-serialize($breakpoints)}';
+}
+
+@import 'minimal-foundation';

@@ -1,7 +1,9 @@
 {
   "name": "Colormag_Child_2",
   "version": "1.1.2",
-  "dependencies": {},
+  "dependencies": {
+    "foundation-sites": "^6.4.1"
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^6.4.1",

@@ -1,0 +1,15 @@
+@import 'foundation-settings'; // Copied from FoundationPress. Added !default to any variables we're overriding
+
+@import "settings-overrides";
+
+@include add-foundation-colors();
+
+@import 'foundation';
+
+// Foundation
+// Here we control all of the various foundation components to use
+@include foundation-grid;
+@include foundation-visibility-classes;
+
+// This is normally part of foundation-typography, but we don't want all of that
+@include foundation-text-alignment;
