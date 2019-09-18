@@ -35,7 +35,7 @@ $state = teched_directory_get_field( 'state' );
 
     <p>
         <strong><?php _e( 'Name:', 'colormag-child-2' ); ?></strong>
-        <?php echo trim( $name ); ?>
+        <?php echo ' ' . trim( $name ); ?>
     </p>
 
 <?php endif; ?>
@@ -54,7 +54,7 @@ $state = teched_directory_get_field( 'state' );
 
     <p>
         <strong><?php _e( 'Phone:', 'colormag-child-2' ); ?></strong>
-        <?php echo trim( teched_get_phone_number_link( $phone ) ); ?>
+        <?php echo ' ' . trim( teched_get_phone_number_link( $phone ) ); ?>
     </p>
 
 <?php endif; ?>
@@ -63,7 +63,7 @@ $state = teched_directory_get_field( 'state' );
 
     <p>
         <strong><?php _e( 'Fax:', 'colormag-child-2' ); ?></strong>
-        <?php echo trim( teched_get_phone_number_link( $fax ) ); ?>
+        <?php echo ' ' . trim( teched_get_phone_number_link( $fax ) ); ?>
     </p>
 
 <?php endif; ?>
@@ -80,6 +80,24 @@ $state = teched_directory_get_field( 'state' );
             <?php endif; ?>
             
         </a>
+    </p>
+
+<?php endif; ?>
+
+<?php if ( ! empty( wp_get_post_terms( get_the_ID(), 'teched-directory-category' ) ) ) : ?>
+
+    <p>
+        <strong><?php _e( 'Categories:', 'colormag-child-2' ); ?></strong>
+        <?php echo ' ' . get_the_term_list( get_the_ID(), 'teched-directory-category', '', ', ' ); ?></p>
+    </p>
+
+<?php endif; ?>
+
+<?php if ( ! empty( wp_get_post_terms( get_the_ID(), 'teched-directory-tag' ) ) ) : ?>
+
+    <p>
+        <strong><?php _e( 'Tags:', 'colormag-child-2' ); ?></strong>
+        <?php echo ' ' . get_the_term_list( get_the_ID(), 'teched-directory-tag', '', ', ' ); ?></p>
     </p>
 
 <?php endif; ?>
