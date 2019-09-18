@@ -162,10 +162,10 @@ add_filter( 'theme_mod_colormag_default_layout', function( $value ) {
 
 } );
 
-add_filter( 'term_link', 'teched_alter_directory_category_link', 999, 3 );
+add_filter( 'term_link', 'teched_alter_directory_taxonomy_link', 999, 3 );
 
 /**
- * Make all Directory State Category Links use FacetWP
+ * Make all Directory Taxonomy Links use FacetWP
  * 
  * @param		string $link     Category Link
  * @param		object $term     WP_Term
@@ -174,19 +174,29 @@ add_filter( 'term_link', 'teched_alter_directory_category_link', 999, 3 );
  * @since		{{VERSION}}
  * @return		string Category Link
  */
-function teched_alter_directory_category_link( $link, $term, $taxonomy ) {
+function teched_alter_directory_taxonomy_link( $link, $term, $taxonomy ) {
+
+	$checked_taxonomy = array(
+		'teched-directory-state' => '_state',
+		'teched-directory-category' => '_directory_categories',
+		'teched-directory-tag' => '_directory_tags',
+	);
 	
-	if ( $taxonomy !== 'teched-directory-state' ) return $link;
+	if ( ! array_key_exists( $taxonomy, $checked_taxonomy ) ) return $link;
 
-	$states = array();
-	if ( function_exists( 'teched_directory_get_state_list' ) ) {
-		$states = teched_directory_get_state_list();
+	if ( $taxonomy == 'teched-directory-state' ) {
+
+		$states = array();
+		if ( function_exists( 'teched_directory_get_state_list' ) ) {
+			$states = teched_directory_get_state_list();
+		}
+
+		if ( ! array_key_exists( $term->name, $states ) ) return $link;
+
 	}
-
-	if ( ! array_key_exists( $term->name, $states ) ) return $link;
 	
 	$link = add_query_arg( array(
-		'_state' => $term->slug,
+		$checked_taxonomy[ $taxonomy ] => $term->slug,
 	), get_post_type_archive_link( 'teched-directory' ) );
 
 	return $link;
