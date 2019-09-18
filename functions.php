@@ -122,67 +122,6 @@ function teched_gtm_after_opening_body_tag() {
 	
 }
 
-function teched_get_state_list() {
-
-	return array(
-		'AL' => __( 'Alabama', 'colormag-child-2' ),
-		'AK' => __( 'Alaska', 'colormag-child-2' ),
-		'AZ' => __( 'Arizona', 'colormag-child-2' ),
-		'AR' => __( 'Arkansas', 'colormag-child-2' ),
-		'CA' => __( 'California', 'colormag-child-2' ),
-		'CO' => __( 'Colorado', 'colormag-child-2' ),
-		'CT' => __( 'Connecticut', 'colormag-child-2' ),
-		'DE' => __( 'Delaware', 'colormag-child-2' ),
-		'DC' => __( 'District of Columbia', 'colormag-child-2' ),
-		'FL' => __( 'Florida', 'colormag-child-2' ),
-		'GA' => __( 'Georgia', 'colormag-child-2' ),
-		'HI' => __( 'Hawaii', 'colormag-child-2' ),
-		'ID' => __( 'Idaho', 'colormag-child-2' ),
-		'IL' => __( 'Illinois', 'colormag-child-2' ),
-		'IN' => __( 'Indiana', 'colormag-child-2' ),
-		'IA' => __( 'Iowa', 'colormag-child-2' ),
-		'KS' => __( 'Kansas', 'colormag-child-2' ),
-		'KY' => __( 'Kentucky', 'colormag-child-2' ),
-		'LA' => __( 'Louisiana', 'colormag-child-2' ),
-		'ME' => __( 'Maine', 'colormag-child-2' ),
-		'MD' => __( 'Maryland', 'colormag-child-2' ),
-		'MA' => __( 'Massachusetts', 'colormag-child-2' ),
-		'MI' => __( 'Michigan', 'colormag-child-2' ),
-		'MN' => __( 'Minnesota', 'colormag-child-2' ),
-		'MS' => __( 'Mississippi', 'colormag-child-2' ),
-		'MO' => __( 'Missouri', 'colormag-child-2' ),
-		'MT' => __( 'Montana', 'colormag-child-2' ),
-		'NE' => __( 'Nebraska', 'colormag-child-2' ),
-		'NV' => __( 'Nevada', 'colormag-child-2' ),
-		'NH' => __( 'New Hampshire', 'colormag-child-2' ),
-		'NJ' => __( 'New Jersey', 'colormag-child-2' ),
-		'NM' => __( 'New Mexico', 'colormag-child-2' ),
-		'NY' => __( 'New York', 'colormag-child-2' ),
-		'NC' => __( 'North Carolina', 'colormag-child-2' ),
-		'ND' => __( 'North Dakota', 'colormag-child-2' ),
-		'OH' => __( 'Ohio', 'colormag-child-2' ),
-		'OK' => __( 'Oklahoma', 'colormag-child-2' ),
-		'OR' => __( 'Oregon', 'colormag-child-2' ),
-		'PA' => __( 'Pennsylvania', 'colormag-child-2' ),
-		'RI' => __( 'Rhode Island', 'colormag-child-2' ),
-		'SC' => __( 'South Carolina', 'colormag-child-2' ),
-		'SD' => __( 'South Dakota', 'colormag-child-2' ),
-		'TN' => __( 'Tennessee', 'colormag-child-2' ),
-		'TX' => __( 'Texas', 'colormag-child-2' ),
-		'UT' => __( 'Utah', 'colormag-child-2' ),
-		'VT' => __( 'Vermont', 'colormag-child-2' ),
-		'VA' => __( 'Virginia', 'colormag-child-2' ),
-		'WA' => __( 'Washington', 'colormag-child-2' ),
-		'WV' => __( 'West Virginia', 'colormag-child-2' ),
-		'WI' => __( 'Wisconsin', 'colormag-child-2' ),
-		'WY' => __( 'Wyoming', 'colormag-child-2' ),
-		'AA' => __( 'Armed Forces Americas', 'colormag-child-2' ),
-		'AE' => __( 'Armed Forces Europe', 'colormag-child-2' ),
-		'AP' => __( 'Armed Forces Pacific', 'colormag-child-2' ),
-	);
-
-}
-
 add_filter( 'facetwp_facet_render_args', 'teched_only_show_state_directory_categories', 10 );
 
 /**
@@ -197,12 +136,10 @@ function teched_only_show_state_directory_categories( $args ) {
 
 	if ( $args['facet']['name'] !== 'state' ) return $args;
 
-	$states = teched_get_state_list();
-
-	// Restrict to States
-	$args['values'] = array_filter( $args['values'], function( $item ) use ( $states ) {
-		return array_key_exists( $item['facet_display_value'], $states );
-	} );
+	$states = array();
+	if ( function_exists( 'teched_directory_get_state_list' ) ) {
+		$states = teched_directory_get_state_list();
+	}
 
 	// Show full State Name, not an abbreviation
 	$args['values'] = array_map( function( $item ) use ( $states ) {
@@ -217,35 +154,9 @@ function teched_only_show_state_directory_categories( $args ) {
 	
 }
 
-add_filter( 'register_post_type_args', function( $args, $post_type ) {
-
-	if ( $post_type !== WPBDP_POST_TYPE ) return $args;
-
-	$args['has_archive'] = true;
-	$args['show_in_nav_menus'] = true;
-
-	return $args;
-
-}, 10, 2 );
-
-add_filter( 'wpbdp_url', function( $url, $pathorview, $args ) {
-
-	if ( $pathorview !== '/' && $pathorview !== 'edit_listing' ) return $url;
-
-	if ( $pathorview == 'edit_listing' ) {
-		return add_query_arg( array( 
-			'post' => $args,
-			'action' => 'edit',
-		), admin_url( 'post.php' ) );
-	}
-
-	return get_post_type_archive_link( WPBDP_POST_TYPE );
-
-}, 10, 3 );
-
 add_filter( 'theme_mod_colormag_default_layout', function( $value ) {
 
-	if ( ! is_post_type_archive( WPBDP_POST_TYPE ) ) return $value;
+	if ( ! is_post_type_archive( 'teched-directory' ) ) return $value;
 
 	return 'left_sidebar';
 
@@ -254,7 +165,7 @@ add_filter( 'theme_mod_colormag_default_layout', function( $value ) {
 add_filter( 'term_link', 'teched_alter_directory_category_link', 999, 3 );
 
 /**
- * Make all Directory Category Links use FacetWP
+ * Make all Directory State Category Links use FacetWP
  * 
  * @param		string $link     Category Link
  * @param		object $term     WP_Term
@@ -265,13 +176,18 @@ add_filter( 'term_link', 'teched_alter_directory_category_link', 999, 3 );
  */
 function teched_alter_directory_category_link( $link, $term, $taxonomy ) {
 	
-	if ( $taxonomy !== WPBDP_CATEGORY_TAX ) return $link;
+	if ( $taxonomy !== 'teched-directory-state' ) return $link;
 
-	if ( ! array_key_exists( $term->name, teched_get_state_list() ) ) return $link;
+	$states = array();
+	if ( function_exists( 'teched_directory_get_state_list' ) ) {
+		$states = teched_directory_get_state_list();
+	}
+
+	if ( ! array_key_exists( $term->name, $states ) ) return $link;
 	
 	$link = add_query_arg( array(
 		'_state' => $term->slug,
-	), get_post_type_archive_link( WPBDP_POST_TYPE ) );
+	), get_post_type_archive_link( 'teched-directory' ) );
 
 	return $link;
 
