@@ -299,8 +299,6 @@ function teched_suppliers_order( $query ) {
 	
 	if ( ! is_post_type_archive( 'teched-suppliers' ) ) return;
 
-	$query->set( 'posts_per_page', 999 );
-
 	$meta_query = $query->get( 'meta_query' );
 
 	if ( empty( $meta_query ) ) {
