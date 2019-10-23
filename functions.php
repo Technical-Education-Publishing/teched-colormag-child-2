@@ -156,7 +156,7 @@ function teched_only_show_state_directory_categories( $args ) {
 
 add_filter( 'theme_mod_colormag_default_layout', function( $value ) {
 
-	if ( ! is_post_type_archive( 'teched-directory' ) ) return $value;
+	if ( ! is_post_type_archive( 'teched-directory' ) && ! is_post_type_archive( 'teched-suppliers' ) ) return $value;
 
 	return 'left_sidebar';
 
@@ -198,6 +198,36 @@ function teched_alter_directory_taxonomy_link( $link, $term, $taxonomy ) {
 	$link = add_query_arg( array(
 		$checked_taxonomy[ $taxonomy ] => $term->slug,
 	), get_post_type_archive_link( 'teched-directory' ) );
+
+	return $link;
+
+}
+
+add_filter( 'term_link', 'teched_alter_suppliers_taxonomy_link', 999, 3 );
+
+/**
+ * Make all suppliers Taxonomy Links use FacetWP
+ * 
+ * @param		string $link     Category Link
+ * @param		object $term     WP_Term
+ * @param		string $taxonomy Taxonomy Name
+ *                                   
+ * @since		{{VERSION}}
+ * @return		string Category Link
+ */
+function teched_alter_suppliers_taxonomy_link( $link, $term, $taxonomy ) {
+
+	$checked_taxonomy = array(
+		'suppliers-subject-discipline' => '_suppliers_subject_discipline',
+		'suppliers-grade-level' => '_suppliers_grade_level',
+		'suppliers-industry' => '_suppliers_industry',
+	);
+	
+	if ( ! array_key_exists( $taxonomy, $checked_taxonomy ) ) return $link;
+	
+	$link = add_query_arg( array(
+		$checked_taxonomy[ $taxonomy ] => $term->slug,
+	), get_post_type_archive_link( 'teched-suppliers' ) );
 
 	return $link;
 
@@ -249,4 +279,72 @@ function teched_get_phone_number_link( $phone_number, $extension = false, $link_
 
 	return $tel_link;
     
+}
+
+add_action( 'pre_get_posts', 'teched_suppliers_order' );
+
+/**
+ * Force the ordering we want for the Suppliers archive
+ *
+ * @param   object  $query  WP_Query
+ *
+ * @since	{{VERSION}}
+ * @return  void
+ */
+function teched_suppliers_order( $query ) {
+
+	if ( is_admin() ) return;
+
+	if ( isset( $_GET['orderby'] ) ) return;
+	
+	if ( ! is_post_type_archive( 'teched-suppliers' ) ) return;
+
+	$query->set( 'posts_per_page', 999 );
+
+	$meta_query = $query->get( 'meta_query' );
+
+	if ( empty( $meta_query ) ) {
+		$meta_query = array( 'relation' => 'AND' );
+	}
+
+	$meta_query['suppliers_featured'] = array(
+		'key' => 'suppliers_featured',
+		'type' => 'NUMERIC',
+	);
+
+	// Sort by Featured first then by Title
+	$orderby = array(
+		'suppliers_featured' => 'DESC',
+		'title' => 'ASC',
+	);
+	
+	$query->set( 'meta_query', $meta_query );
+	$query->set( 'orderby', $orderby );
+
+}
+
+add_action( 'widgets_init', 'teched_register_sidebars' );
+
+function teched_register_sidebars() {
+
+	register_sidebar( array(
+		'name'          => __( 'Directory Sidebar', 'colormag-child-2' ),
+		'id'            => 'teched-directory',
+		'description'   => __( 'Shows widgets at Left side.', 'colormag-child-2' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h3>',
+	) );
+
+	register_sidebar( array(
+		'name'          => __( 'Suppliers Sidebar', 'colormag-child-2' ),
+		'id'            => 'teched-suppliers',
+		'description'   => __( 'Shows widgets at Left side.', 'colormag-child-2' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
+		'after_widget'  => '</aside>',
+		'before_title'  => '<h3 class="widget-title"><span>',
+		'after_title'   => '</span></h3>',
+	) );
+
 }
