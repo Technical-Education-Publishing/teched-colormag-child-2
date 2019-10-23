@@ -31,6 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
       </header>
 
       <div class="entry-content clearfix">
+
+        <?php the_excerpt(); ?>
       
          <?php get_template_part( 'template-parts/teched-suppliers', 'meta' ); ?>
 
