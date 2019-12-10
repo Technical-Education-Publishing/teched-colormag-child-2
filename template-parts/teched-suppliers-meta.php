@@ -71,7 +71,7 @@ $state = teched_suppliers_get_field( 'state' );
 <?php if ( ! empty( wp_get_post_terms( get_the_ID(), 'suppliers-subject-discipline' ) ) ) : ?>
 
     <p>
-        <strong><?php _e( 'Subjects/Disciplines:', 'colormag-child-2' ); ?></strong>
+        <strong><?php _e( 'Subjects:', 'colormag-child-2' ); ?></strong>
         <?php echo ' ' . get_the_term_list( get_the_ID(), 'suppliers-subject-discipline', '', ', ' ); ?></p>
     </p>
 
