@@ -129,7 +129,7 @@ add_filter( 'facetwp_facet_render_args', 'teched_only_show_state_directory_categ
  *
  * @param   [array]  $args  Facet Rendering Args
  *
- * @since	{{VERSION}}
+ * @since	1.2.0
  * @return  [array]         Facet Rendering Args
  */
 function teched_only_show_state_directory_categories( $args ) {
@@ -171,7 +171,7 @@ add_filter( 'term_link', 'teched_alter_directory_taxonomy_link', 999, 3 );
  * @param		object $term     WP_Term
  * @param		string $taxonomy Taxonomy Name
  *                                   
- * @since		{{VERSION}}
+ * @since		1.2.0
  * @return		string Category Link
  */
 function teched_alter_directory_taxonomy_link( $link, $term, $taxonomy ) {
@@ -212,7 +212,7 @@ add_filter( 'term_link', 'teched_alter_suppliers_taxonomy_link', 999, 3 );
  * @param		object $term     WP_Term
  * @param		string $taxonomy Taxonomy Name
  *                                   
- * @since		{{VERSION}}
+ * @since		1.2.0
  * @return		string Category Link
  */
 function teched_alter_suppliers_taxonomy_link( $link, $term, $taxonomy ) {
@@ -241,7 +241,7 @@ function teched_alter_suppliers_taxonomy_link( $link, $term, $taxonomy ) {
  * @param		string  $link_text    Text to use instead of the Phone Number
  * @param		boolean $echo         Whether to echo out the HTML. False returns the Tel Link
  *             
- * @since		{{VERSION}}                                                                       
+ * @since		1.2.0                                                                       
  * @return		string  tel: Link
  */
 function teched_get_phone_number_link( $phone_number, $extension = false, $link_text = '', $echo = true ) {
@@ -288,7 +288,7 @@ add_action( 'pre_get_posts', 'teched_suppliers_order' );
  *
  * @param   object  $query  WP_Query
  *
- * @since	{{VERSION}}
+ * @since	1.2.0
  * @return  void
  */
 function teched_suppliers_order( $query ) {
