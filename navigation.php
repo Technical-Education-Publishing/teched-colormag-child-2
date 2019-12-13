@@ -1,6 +1,6 @@
 <?php
 /**
- * Route the Single Content requests to be specific per-Post Type
+ * Route the Navigation requests to be specific per-Post Type
  *
  * @package Colormag_Child_2
  * @since {{VERSION}}
