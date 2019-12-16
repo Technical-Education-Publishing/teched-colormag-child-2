@@ -3,7 +3,7 @@
  * Route the Navigation requests to be specific per-Post Type
  *
  * @package Colormag_Child_2
- * @since {{VERSION}}
+ * @since 1.2.1
  */
 
 // Exit if accessed directly
