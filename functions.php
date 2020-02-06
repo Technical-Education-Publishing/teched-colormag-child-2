@@ -356,7 +356,7 @@ function teched_register_sidebars() {
  *
  * Get links through Theme Options
  * 
- * @since	{{VERSION}}
+ * @since	1.2.2
  * @parent	1.4.2
  */
 function colormag_social_links() {
