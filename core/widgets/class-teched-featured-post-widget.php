@@ -74,8 +74,6 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 			
 				add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
 
-				$first_post = true;
-
 				?>
 
 				<?php echo $args['before_widget']; ?>
