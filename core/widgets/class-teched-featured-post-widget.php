@@ -61,7 +61,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 			$widget_query = new WP_Query( array(
 				'post_type' => 'post',
 				'cat' => $category_id,
-				'posts_per_page' => 1,
+				'posts_per_page' => 2,
 				'post_status' => 'publish',
 			) );
 			
@@ -73,14 +73,18 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 				remove_filter( 'the_excerpt', 'wpautop' );
 			
 				add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
+
+				$first_post = true;
+
+				?>
+
+				<?php echo $args['before_widget']; ?>
+
+				<h3 class="widget-title" style="border-bottom-color:;"><span>
+					<?php echo get_cat_name( $category_id ); ?>
+				</span></h3>
 			
-				while ( $widget_query->have_posts() ) : $widget_query->the_post(); ?>
-
-					<?php echo $args['before_widget']; ?>
-
-					<h3 class="widget-title" style="border-bottom-color:;"><span>
-						<?php echo get_cat_name( $category_id ); ?>
-					</span></h3>
+				<?php while ( $widget_query->have_posts() ) : $widget_query->the_post(); ?>
 
 					<div id="author-feature" class="first-post">
 						<div class="single-article clearfix">
@@ -154,10 +158,10 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 						</div>
 
 					</div>
-
-					<?php echo $args['after_widget']; ?>
 			
 				<?php endwhile;
+
+				echo $args['after_widget'];
 			
 				wp_reset_postdata();
 			
