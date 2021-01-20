@@ -61,7 +61,7 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 			$widget_query = new WP_Query( array(
 				'post_type' => 'post',
 				'cat' => $category_id,
-				'posts_per_page' => 2,
+				'posts_per_page' => 1,
 				'post_status' => 'publish',
 			) );
 			
@@ -88,24 +88,22 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 						<div class="single-article clearfix">
 							<div class="article-content" style="margin-left: 3px; margin-right: 3px;">
 
-								<div class="above-entry-meta">
-									<span class="cat-links">
+								<span class="cat-links">
 
-										<?php 
+									<?php 
 
-											$post_categories = wp_get_post_categories( get_the_ID() );
+										$post_categories = wp_get_post_categories( get_the_ID() );
 
-											foreach ( $post_categories as $index => $term_id ) : ?>
+										foreach ( $post_categories as $index => $term_id ) : ?>
 
-												<a href="<?php echo get_category_link( $term_id ); ?>"<?php echo ( $index == 0 ) ? ' style="background:#005151"' : ''; ?> rel="category tag" target="_self">
-													<?php echo get_cat_name( $term_id ); ?>
-												</a>
-												&nbsp;
+											<a href="<?php echo get_category_link( $term_id ); ?>"<?php echo ( $index == 0 ) ? ' style="background:#005151"' : ''; ?> rel="category tag" target="_self">
+												<?php echo get_cat_name( $term_id ); ?>
+											</a>
+											&nbsp;
 
-											<?php endforeach; ?>
+										<?php endforeach; ?>
 
-									</span>
-								</div>
+								</span>
 
 								<h3 class="entry-title">
 									<a href="<?php the_permalink(); ?>" target="_self">
