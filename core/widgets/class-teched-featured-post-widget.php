@@ -88,23 +88,6 @@ if ( ! class_exists( 'TechEd_Featured_Post_Widget' ) ) {
 						<div class="single-article clearfix">
 							<div class="article-content" style="margin-left: 3px; margin-right: 3px;">
 
-								<span class="cat-links">
-
-									<?php 
-
-										$post_categories = wp_get_post_categories( get_the_ID() );
-
-										foreach ( $post_categories as $index => $term_id ) : ?>
-
-											<a href="<?php echo get_category_link( $term_id ); ?>"<?php echo ( $index == 0 ) ? ' style="background:#005151"' : ''; ?> rel="category tag" target="_self">
-												<?php echo get_cat_name( $term_id ); ?>
-											</a>
-											&nbsp;
-
-										<?php endforeach; ?>
-
-								</span>
-
 								<h3 class="entry-title">
 									<a href="<?php the_permalink(); ?>" target="_self">
 										<?php the_title(); ?>
