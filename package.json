@@ -1,6 +1,6 @@
 {
   "name": "Colormag_Child_2",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "dependencies": {
     "foundation-sites": "^6.4.1"
   },
