@@ -400,7 +400,7 @@ function colormag_social_links() {
 
 /**
  * Defers parsing of JS
- * @since	{{VERSION}}
+ * @since	1.2.4
  */
 function defer_parsing_of_js ( $url ) {
 	if ( FALSE === strpos( $url, '.js' ) ) return $url;
